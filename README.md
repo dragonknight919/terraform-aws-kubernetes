@@ -36,7 +36,7 @@ AWS Kubernetes is a Kubernetes cluster deployed using [Kubeadm](https://kubernet
 
 ## Prerequisites and dependencies
 
-* AWS Kubernetes deploys into existing VPC / public subnet. If you don't have your VPC / subnet yet, you can use [this](https://github.com/scholzj/terraform-aws-vpc) module to create one.
+* AWS Kubernetes deploys into existing VPC / public subnet. If you don't have your VPC / subnet yet, you can use [this](https://github.com/dragonmstr/terraform-aws-vpc) module to create one.
   * The VPC / subnet should be properly linked with Internet Gateway (IGW) and should have DNS and DHCP enabled.
   * Hosted DNS zone configured in Route53 (in case the zone is private you have to use IP address to copy `kubeconfig` and access the cluster).
 * To deploy AWS Kubernetes there are no other dependencies apart from [Terraform](https://www.terraform.io). Kubeadm is used only on the EC2 hosts and doesn't have to be installed locally.
@@ -47,7 +47,7 @@ Although it can be run on its own, the main value is that it can be included int
 
 ```hcl
 module "kubernetes" {
-  source = "scholzj/kubernetes/aws"
+  source = "dragonmstr/kubernetes/aws"
 
   aws_region    = "eu-central-1"
   cluster_name  = "aws-kubernetes"
@@ -83,11 +83,11 @@ module "kubernetes" {
   ]
   
   addons = [
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/storage-class.yaml",
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/heapster.yaml",
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/dashboard.yaml",
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/external-dns.yaml",
-    "https://raw.githubusercontent.com/scholzj/terraform-aws-kubernetes/master/addons/autoscaler.yaml"
+    "https://raw.githubusercontent.com/dragonmstr/terraform-aws-kubernetes/master/addons/storage-class.yaml",
+    "https://raw.githubusercontent.com/dragonmstr/terraform-aws-kubernetes/master/addons/heapster.yaml",
+    "https://raw.githubusercontent.com/dragonmstr/terraform-aws-kubernetes/master/addons/dashboard.yaml",
+    "https://raw.githubusercontent.com/dragonmstr/terraform-aws-kubernetes/master/addons/external-dns.yaml",
+    "https://raw.githubusercontent.com/dragonmstr/terraform-aws-kubernetes/master/addons/autoscaler.yaml"
   ]
 }
 ```
@@ -112,4 +112,4 @@ Custom add-ons can be added if needed. For every URL in the `addons` list, the i
 
 ## Tagging
 
-If you need to tag resources created by your Kubernetes cluster (EBS volumes, ELB load balancers etc.) check [this AWS Lambda function which can do the tagging](https://github.com/scholzj/aws-kubernetes-tagging-lambda).
+If you need to tag resources created by your Kubernetes cluster (EBS volumes, ELB load balancers etc.) check [this AWS Lambda function which can do the tagging](https://github.com/dragonmstr/aws-kubernetes-tagging-lambda).
